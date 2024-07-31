@@ -1,2 +1,4 @@
 main.py
 *.pyc
+user_data.csv
+main.sql
