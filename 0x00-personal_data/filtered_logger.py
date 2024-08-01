@@ -11,12 +11,15 @@ from typing import List
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
-def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
+def filter_datum(
+        fields: List[str], redaction: str, message: str, separator: str
+) -> str:
     """
     Returns the log message obfuscated
     """
     pattern = rf'({"|".join(fields)})=[^{separator}]*'
-    return re.sub(pattern, lambda m: f'{m.group().split("=")[0]}={redaction}', message)
+    return re.sub(pattern,
+                  lambda m: f'{m.group().split("=")[0]}={redaction}', message)
 
 
 class RedactingFormatter(logging.Formatter):
@@ -30,7 +33,11 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        record.msg = filter_datum(self.fields, self.REDACTION, record.getMessage(), self.SEPARATOR)
+        record.msg = filter_datum(
+            self.fields,
+            self.REDACTION,
+            record.getMessage(),
+            self.SEPARATOR)
         return super().format(record)
 
 
@@ -54,6 +61,7 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
     return logger
 
+
 def main():
     """Main function to connect to the database and log user data"""
     logger = get_logger()
@@ -67,6 +75,7 @@ def main():
 
     cursor.close()
     db.close()
+
 
 if __name__ == "__main__":
     main()
