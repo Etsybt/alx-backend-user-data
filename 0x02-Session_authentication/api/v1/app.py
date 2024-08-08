@@ -47,9 +47,8 @@ def forbidden(error) -> str:
 
 @app.before_request
 def before_request():
-    """ before_req method
-    Return:
-        filtered request
+    """ Before request method
+    Assigns the result of auth.current_user(request) to request.current_user.
     """
     if auth is None:
         return
