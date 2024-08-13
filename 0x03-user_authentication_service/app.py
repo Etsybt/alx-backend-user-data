@@ -10,14 +10,14 @@ app = Flask(__name__)
 AUTH = Auth()
 
 
-@app.route('/', methods=['GET'])
+@app.route("/", methods=["GET"], strict_slashes=False)
 def index():
     """GET route that returns a JSON payload"""
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route('/users', methods=['POST'])
-def register_user() -> str:
+@app.route("/users", methods=["POST"], strict_slashes=False)
+def users() -> str:
     """POST /users route to register a user"""
     email = request.form.get('email')
     password = request.form.get('password')
