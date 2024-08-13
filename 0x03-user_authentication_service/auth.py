@@ -5,6 +5,10 @@ auth file
 import bcrypt
 from db import DB
 from user import User
+<<<<<<< HEAD
+=======
+from sqlalchemy.orm.exc import NoResultFound
+>>>>>>> 0240b9084dfc61af4141f9ac7be06e62fec9d8a7
 
 
 def _hash_password(password: str) -> bytes:
