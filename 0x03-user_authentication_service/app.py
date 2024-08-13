@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Flask app
+a simple Flask app
 """
 from flask import Flask, jsonify
 
