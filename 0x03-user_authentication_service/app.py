@@ -15,18 +15,21 @@ def index():
 
 
 @app.route("/users", methods=["POST"])
-def register_user():
-    email = request.form.get("email")
-    password = request.form.get("password")
-
-    if not email or not password:
-        return jsonify({"message": "Missing email or password"}), 400
+def register_user() -> str:
+    """registers a new user
+    """
+    try:
+        email = request.form['email']
+        password = request.form['password']
+    except KeyError:
+        abort(400)
 
     try:
         user = AUTH.register_user(email, password)
-        return jsonify({"email": user.email, "message": "user created"}), 201
-    except ValueError as e:
-        return jsonify({"message": str(e)}), 400
+    except ValueError:
+        return jsonify({"message": "email already registered"}), 400
+
+    return jsonify({"email": email, "message": "user created"})
 
 
 if __name__ == "__main__":
