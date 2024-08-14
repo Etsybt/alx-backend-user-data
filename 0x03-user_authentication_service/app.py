@@ -32,24 +32,24 @@ def register_user() -> str:
     return jsonify({"email": email, "message": "user created"})
 
 
-@app.route("/sessions", methods=["POST"])
-def login() -> str:
-    """logins the user
+@app.route('/sessions', methods=['POST'])
+def login_user() -> str:
+    """logins the user and giving the seesion IDs
     """
     try:
-        user_email = request.form['email']
-        user_password = request.form['password']
+        email = request.form['email']
+        password = request.form['password']
     except KeyError:
         abort(400)
 
-    if not authentication_service.is_valid_login(user_email, user_password):
+    if not AUTH.valid_login(email, password):
         abort(401)
 
-    session_token = authentication_service.create_session(user_email)
+    session_token = AUTH.create_session(email)
 
     response_data = {
-        "email": user_email,
-        "message": "Logged in successfully"
+        "email": email,
+        "message": "logged in"
     }
     response = jsonify(response_data)
 
