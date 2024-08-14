@@ -59,7 +59,7 @@ def login_user() -> str:
 
 
 @appr.route('/sessions', methods=['DELETE'])
-def logout() -> str:
+def log_out() -> str:
     """logouts the user
     """
     session_id = request.cookies.get("session_id", None)
