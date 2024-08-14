@@ -45,7 +45,7 @@ def login_user() -> str:
     if not AUTH.valid_login(email, password):
         abort(401)
 
-    session_token = AUTH.create_session(email)
+    session_id = AUTH.create_session(email)
 
     response_data = {
         "email": email,
@@ -53,7 +53,7 @@ def login_user() -> str:
     }
     response = jsonify(response_data)
 
-    response.set_cookie("session_token", session_token)
+    response.set_cookie("session_id", session_id)
 
     return response
 
