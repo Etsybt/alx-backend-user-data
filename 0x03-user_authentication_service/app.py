@@ -11,6 +11,8 @@ AUTH = Auth()
 
 @app.route("/", methods=["GET"])
 def index():
+    """simple flask app
+    """
     return jsonify({"message": "Bienvenue"})
 
 
